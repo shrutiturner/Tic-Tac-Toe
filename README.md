@@ -6,3 +6,6 @@ Scripts with answers to the problems directly for the Tic-Tac-Toe game
 
 # Problems folder
 Scripts solving the daily challenges
+
+# Requirements
+Requirements are laid out in the requirements.txt file to run the scripts in Pycharm linked to the JetBrains Academy.
