@@ -1,68 +1,38 @@
+def print_board(moves_dict):
+    """print board layout from moves_dict"""
+    print("---------")
+    print("| {0} {1} {2} |".format(moves_dict[(1, 3)], moves_dict[(2, 3)], moves_dict[(3, 3)]))
+    print("| {0} {1} {2} |".format(moves_dict[(1, 2)], moves_dict[(2, 2)], moves_dict[(3, 2)]))
+    print("| {0} {1} {2} |".format(moves_dict[(1, 1)], moves_dict[(2, 1)], moves_dict[(3, 1)]))
+    print("---------")
+
+
 input_str = input("Enter cells:")
 
-# print input in required form
-print("---------")
-print("| {0} {1} {2} |".format(input_str[0], input_str[1], input_str[2]))
-print("| {0} {1} {2} |".format(input_str[3], input_str[4], input_str[5]))
-print("| {0} {1} {2} |".format(input_str[6], input_str[7], input_str[8]))
-print("---------")
+moves_dict = {(1, 3): input_str[0], (2, 3): input_str[1], (3, 3): input_str[2],
+              (1, 2): input_str[3], (2, 2): input_str[4], (3, 2): input_str[5],
+              (1, 1): input_str[6], (2, 1): input_str[7], (3, 1): input_str[8]}
 
-# Have a legal number of moves been made by each side?
+print_board(moves_dict)
 
-x_count = input_str.count('X')
-o_count = input_str.count('O')
-blank_count = input_str.count('_')
+while True:
+    move_str = input("Enter the coordinates:").replace(" ", "")
+    if len(move_str) == 2:
+        coords = (int(move_str[0]), int(move_str[1]))
+        if coords in moves_dict.keys():
+            if moves_dict[coords] == '_':
+                print(moves_dict)
+                moves_dict[coords] = "X"
+                print(moves_dict)
+                break
+            else:
+                print("This cell is occupied! Choose another one!")
+        else:
+            print("Coordinates should be from 1 to 3!")
+    else:
+        print("You should enter numbers!")
 
-# Create a matrix of the values for further testing
-
-matrix = [[input_str[0], input_str[1], input_str[2]],
-          [input_str[3], input_str[4], input_str[5]],
-          [input_str[6], input_str[7], input_str[8]]]
-
-
-# Is there a winner in a row, but not multiple?
-row_win_count = 0
-
-for row in matrix:
-    if row[0] == row[1] == row[2] != "_":
-        row_win_count += 1
-        winner = row[0]
-
-# Is there a winner in a column, but not multiple?
-column_win_count = 0
-i = 0
-
-for i in range(3):
-    if matrix[0][i] == matrix[1][i] == matrix[2][i] != "_":
-        column_win_count += 1
-        winner = matrix[0][i]
-    i += 1
-
-# Is there a winner in a diagonal, but not multiple?
-diagonal_win_count = 0
-
-if matrix[0][0] == matrix[1][1] == matrix[2][2] != "_":
-    diagonal_win_count += 1
-    winner = matrix[0][0]
-
-if matrix[0][2] == matrix[1][1] == matrix[2][0] != "_":
-    diagonal_win_count += 1
-    winner = matrix[0][2]
-
-# decide on output statement based on values calculated
-
-if row_win_count + column_win_count + diagonal_win_count > 1:
-    print("Impossible")
-elif x_count > o_count + 1 or o_count > x_count + 1:
-    print("Impossible")
-elif row_win_count + column_win_count + diagonal_win_count == 1:
-    print("{0} wins".format(winner))
-elif blank_count > 0:
-    print("Game not finished")
-else:
-    print("Draw")
-
-
+print_board(moves_dict)
 
 
 
